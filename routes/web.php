@@ -19,4 +19,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/test', function () {
     return 'テスト成功';
 });
+Route::get('/tasks', function () {
+    return 'tasks OK';
+});
 require __DIR__.'/auth.php';
