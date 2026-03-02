@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/test', function () {
     return 'テスト成功';
 });
-Route::get('/tasks', [TaskController::class, 'index']);
 
+Route::get('/tasks', function () {
+    return 'tasks OK';
+});
+>>>>>>> 87376cd (Add TaskController)
 require __DIR__.'/auth.php';
