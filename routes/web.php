@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +19,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/test', function () {
     return 'テスト成功';
 });
-Route::get('/tasks', function () {
-    return 'tasks OK';
-});
+Route::get('/tasks', [TaskController::class, 'index']);
+
 require __DIR__.'/auth.php';
