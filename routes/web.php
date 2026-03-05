@@ -1,6 +1,7 @@
 <?php
-use App\Http\Controllers\TaskController;
+
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,12 +17,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::get('/test', function () {
     return 'テスト成功';
 });
 
-Route::get('/tasks', function () {
-    return 'tasks OK';
-});
->>>>>>> 87376cd (Add TaskController)
+Route::get('/tasks', [TaskController::class, 'index']);
+
 require __DIR__.'/auth.php';
