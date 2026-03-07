@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::all();
-        return view('tasks.index', compact('tasks'));
+        $keyword = $request->keyword;
+    
+        $tasks = Task::where('user_id', auth()->id())
+            ->when($keyword, function ($query, $keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%');
+            })
+            ->latest()
+            ->paginate(10);
+    
+        return view('tasks.index', compact('tasks', 'keyword'));
     }
 
     public function create()
@@ -25,7 +33,8 @@ class TaskController extends Controller
     ]);
 
     Task::create([
-        'title' => $request->title
+        'title' => $request->title,
+        'user_id' => auth()->id()
     ]);
 
     return redirect('/tasks');
